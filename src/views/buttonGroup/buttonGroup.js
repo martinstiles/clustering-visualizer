@@ -26,7 +26,7 @@ const ButtonGroup = (props) => {
     ...commonStyle,
     minWidth: '5em',
   }
-  const selectKMeansTypeStyle = {
+  const selectCentroidTypeStyle = {
     ...commonStyle,
     minWidth: '9em',
   }
@@ -53,7 +53,7 @@ const ButtonGroup = (props) => {
   // PLAY BUTTON
   const handlePlayClick = () => {
     if (algorithm === 'kMeans') {
-      props.runAlgorithm(algorithm, {k, type: kMeansType})
+      props.runAlgorithm(algorithm, {k, centroidType: centroidType})
     }
   }
 
@@ -63,9 +63,9 @@ const ButtonGroup = (props) => {
     setK(event.target.value)
   }
 
-  const [kMeansType, setKMeansType] = useState('random')
-  const handleKMeansTypeChange = (event) => {
-    setKMeansType(event.target.value)
+  const [centroidType, setCentroidType] = useState('random')
+  const handleCentroidTypeChange = (event) => {
+    setCentroidType(event.target.value)
   }
 
   // <MenuItem value={'slow'}>Slow</MenuItem>
@@ -103,9 +103,9 @@ const ButtonGroup = (props) => {
 
         <FormControl variant="filled" style={{marginLeft: '1em'}}>
           <InputLabel>
-            <div style={{color: 'black', fontStyle: 'italic'}}>K-Means type</div>
+            <div style={{color: 'black', fontStyle: 'italic'}}>Centroid type</div>
           </InputLabel>
-          <Select style={selectKMeansTypeStyle} value={kMeansType} onChange={handleKMeansTypeChange} label="Algorithm" autoWidth={true}>
+          <Select style={selectCentroidTypeStyle} value={centroidType} onChange={handleCentroidTypeChange} label="Algorithm" autoWidth={true}>
             <MenuItem value={'random'}>Random</MenuItem>
             <MenuItem value={'deterministic'}>Deterministic</MenuItem>
           </Select>
@@ -142,7 +142,7 @@ const ButtonGroup = (props) => {
       </div>
 
       <Button
-        style={{marginLeft: '1em', color: 'black', backgroundColor: !isEmpty && !isCustomized ? 'gray' : '#cf2e2e'}} // true -> !isEmpty
+        style={{marginLeft: '1em', color: 'black', backgroundColor: !isEmpty && !isCustomized ? 'gray' : '#e3afbc'}} // true -> !isEmpty
         variant="contained"
         disabled={!isEmpty && !isCustomized} // true -> !isEmpty
         onClick={() => props.generatePoints(10)}

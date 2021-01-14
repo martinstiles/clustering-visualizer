@@ -58,7 +58,7 @@ const Table = () => {
     setRunState('running')
     if (currentAlgorithm === 'kMeans') {
       const k = additionalInfo.k
-      const type = additionalInfo.type
+      const type = additionalInfo.centroidType
       Algorithm(k, type, table, currentSpeed, setRunState, setIterations, setVariance, changeHook, setChangeHook)
     }
   }
@@ -82,6 +82,7 @@ const Table = () => {
       const colIndex = getRandomInt(40)
       setTypeInPoint('marked', [rowIndex, colIndex])
     }
+    setRunState('customized')
     setChangeHook(!changeHook)
   }
 

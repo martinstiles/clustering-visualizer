@@ -1,7 +1,7 @@
 import { getCentroids, getMarkedPoints, getUniformCentroids, getEuclidianDistance, getAverageOfCluster, getCopyOfCentroids, compareCentroids } from './utils.js'
 import { visualize } from './visualize'
 
-export const KMeans = (k, type, table, speed, setRunState, setIterations, setVariance, changeHook, setChangeHook) => {
+export const KMeans = (k, centroidType, table, speed, setRunState, setIterations, setVariance, changeHook, setChangeHook) => {
   // ChangedNodesInOrder contains every update to visualize
   // For elem in changedNodesInOrder:
   // 1. [{id: "0", rowIndex: 19, colIndex: 9, cluster: Array(0)}, {...}] --> Update all centroids and remove previous ones --> if elem.length > 1
@@ -14,7 +14,7 @@ export const KMeans = (k, type, table, speed, setRunState, setIterations, setVar
 
   const points = getMarkedPoints(table) // MUST BE CHANGED TO HELPER TABLE (?)
 
-  const centroids = type === 'random' ? getCentroids(k) : getUniformCentroids(k)
+  const centroids = centroidType === 'random' ? getCentroids(k) : getUniformCentroids(k)
   // const copyOfInitialCentroids = getCopyOfCentroids(centroids)
 
   var centroidsAreChanging = true
