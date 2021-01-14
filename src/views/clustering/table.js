@@ -35,8 +35,9 @@ const Table = () => {
     const row = coordinates[0]
     const col = coordinates[1]
     const point = table[row][col]
+    // console.log(point)
     point.type = type
-    if (isInteger(type)) point.prevType = 'marked'
+    //if (isInteger(type)) point.prevType = 'marked'
   }
 
   const resetPoints = useCallback(() => {
@@ -51,11 +52,15 @@ const Table = () => {
     }
   }, [])
 
-  const runAlgorithm = (currentAlgorithm, k=3) => {
+  const runAlgorithm = (currentAlgorithm, additionalInfo={}) => {
     const Algorithm = labelToAlgorithm[currentAlgorithm]
     const currentSpeed = speedLabelToSpeedMap[speed]
     setRunState('running')
-    Algorithm(k, table, currentSpeed, setRunState, setIterations, setVariance, changeHook, setChangeHook)
+    if (currentAlgorithm === 'kMeans') {
+      const k = additionalInfo.k
+      const type = additionalInfo.type
+      Algorithm(k, type, table, currentSpeed, setRunState, setIterations, setVariance, changeHook, setChangeHook)
+    }
   }
 
   const resetAlgorithm = () => {
@@ -72,15 +77,12 @@ const Table = () => {
   }
 
   const generateRandomPoints = (numOfPoins=10) => {
-    const randomPoints = []
     for (let i = 0; i < numOfPoins; i++) {
-       randomPoints.push({
-         rowIndex: getRandomInt(22),
-         colIndex: getRandomInt(40),
-       })
+      const rowIndex = getRandomInt(22)
+      const colIndex = getRandomInt(40)
+      setTypeInPoint('marked', [rowIndex, colIndex])
     }
-    randomPoints.forEach((point) => setTypeInPoint('marked', [point.rowIndex, point.colIndex]))
-    setChangeHook(changeHook)
+    setChangeHook(!changeHook)
   }
 
   return (
