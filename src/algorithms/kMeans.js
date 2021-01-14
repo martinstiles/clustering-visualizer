@@ -1,7 +1,7 @@
-import { getCentroids, getHelperTable , getMarkedPoints, getUniformCentroids, getEuclidianDistance, getAverageOfCluster, getCopyOfCentroids, compareCentroids } from './utils.js'
+import { getCentroids, getMarkedPoints, getUniformCentroids, getEuclidianDistance, getAverageOfCluster, getCopyOfCentroids, compareCentroids } from './utils.js'
 import { visualize } from './visualize'
 
-export const KMeans = (k, table, speed, setRunState, setIterations, setVariance, changeHook, setChangeHook) => {
+export const KMeans = (k, type, table, speed, setRunState, setIterations, setVariance, changeHook, setChangeHook) => {
   // ChangedNodesInOrder contains every update to visualize
   // For elem in changedNodesInOrder:
   // 1. [{id: "0", rowIndex: 19, colIndex: 9, cluster: Array(0)}, {...}] --> Update all centroids and remove previous ones --> if elem.length > 1
@@ -14,9 +14,8 @@ export const KMeans = (k, table, speed, setRunState, setIterations, setVariance,
 
   const points = getMarkedPoints(table) // MUST BE CHANGED TO HELPER TABLE (?)
 
-  const centroids = getCentroids(k)
-  const copyOfInitialCentroids = getCopyOfCentroids(centroids)
-  // const centroids = getUniformCentroids(k)
+  const centroids = type === 'random' ? getCentroids(k) : getUniformCentroids(k)
+  // const copyOfInitialCentroids = getCopyOfCentroids(centroids)
 
   var centroidsAreChanging = true
 
@@ -45,14 +44,9 @@ export const KMeans = (k, table, speed, setRunState, setIterations, setVariance,
   
     // Assert new coordinates to the centroids
     centroids.forEach((centroid) => {
-      // console.log('old')
-      // console.log(centroid)
       const newCoordinates = getAverageOfCluster(centroid.cluster)
-      // console.log('new')
-      // console.log(newCoordinates)
       if (!Number.isNaN(newCoordinates.rowIndex)) centroid.rowIndex = newCoordinates.rowIndex
       if (!Number.isNaN(newCoordinates.colIndex)) centroid.colIndex = newCoordinates.colIndex
-      // console.log('')
     })
     changedNodesInOrder.push(centroids)
 
@@ -78,7 +72,7 @@ export const KMeans = (k, table, speed, setRunState, setIterations, setVariance,
 
   var variance = 0
   centroids.forEach((c) => {
-    console.log(c)
+    // console.log(c)
     c.cluster.forEach((point) => {
       variance += getEuclidianDistance(c, point)
     })

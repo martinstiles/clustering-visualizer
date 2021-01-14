@@ -54,6 +54,23 @@ const TransitionsModal = () => {
             <div style={{textAlign: 'center', fontStyle: 'italic'}}>
               <h3> - Definitely under development - </h3>
             </div>
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginLeft: '1em', marginRight: '1em'}}>
+              <div style={{display: 'flex', flexDirection: 'row'}}>
+                <p style={{color: '#e3afbc', fontStyle: 'italic'}}> Circle&nbsp; </p>
+                <p> - centroid of a cluster </p>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row'}}>
+                <p style={{color: '#e3afbc'}}> Square&nbsp; </p>
+                <p> - data point </p>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row'}}>
+                <p> A &nbsp;</p>
+                <p style={{color: '#e3afbc'}}> data points &nbsp; </p>
+                <p> with the same color as a &nbsp;</p>
+                <p style={{color: '#e3afbc'}}> centroid &nbsp; </p>
+                <p> belongs to it's cluster </p>
+              </div>
+            </div>
             <p> 1. Click inside the grid to make points for the clustering algorithm </p>
             <p> 2. Clicking the same cell twice will remove the point </p>
             <p> 3. Select algorithm of choice (currently only one) </p>

@@ -14,15 +14,21 @@ const ButtonGroup = (props) => {
     justifyContent: 'space-between'
   }
 
-  const selectStyle = {
+  const commonStyle = {
     backgroundColor: '#FFE19C',
-    minWidth: '10em',
     textAlign: 'left'
   }
+  const selectStyle = {
+    ...commonStyle,
+    minWidth: '10em',
+  }
   const selectKStyle = {
-    backgroundColor: '#FFE19C',
-    minWidth: '6em',
-    textAlign: 'left'
+    ...commonStyle,
+    minWidth: '5em',
+  }
+  const selectKMeansTypeStyle = {
+    ...commonStyle,
+    minWidth: '9em',
   }
 
   // run states:
@@ -46,13 +52,20 @@ const ButtonGroup = (props) => {
 
   // PLAY BUTTON
   const handlePlayClick = () => {
-    props.runAlgorithm(algorithm, k)
+    if (algorithm === 'kMeans') {
+      props.runAlgorithm(algorithm, {k, type: kMeansType})
+    }
   }
 
   // Select K
   const [k, setK] = useState(3)
   const handleKChange = (event) => {
     setK(event.target.value)
+  }
+
+  const [kMeansType, setKMeansType] = useState('random')
+  const handleKMeansTypeChange = (event) => {
+    setKMeansType(event.target.value)
   }
 
   // <MenuItem value={'slow'}>Slow</MenuItem>
@@ -72,20 +85,32 @@ const ButtonGroup = (props) => {
       </FormControl>
 
       { algorithm === 'kMeans' &&
-      <FormControl variant="filled" style={{marginLeft: '1em'}}>
-        <InputLabel>
-          <div style={{color: 'black', fontStyle: 'italic'}}>Select K</div>
-        </InputLabel>
-        <Select style={selectKStyle} value={k} onChange={handleKChange} label="Algorithm" autoWidth={true}>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={6}>6</MenuItem>
-          <MenuItem value={7}>7</MenuItem>
-        </Select>
-      </FormControl>
+      <>
+        <FormControl variant="filled" style={{marginLeft: '1em'}}>
+          <InputLabel>
+            <div style={{color: 'black', fontStyle: 'italic'}}>Select K</div>
+          </InputLabel>
+          <Select style={selectKStyle} value={k} onChange={handleKChange} label="Algorithm" autoWidth={true}>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl variant="filled" style={{marginLeft: '1em'}}>
+          <InputLabel>
+            <div style={{color: 'black', fontStyle: 'italic'}}>K-Means type</div>
+          </InputLabel>
+          <Select style={selectKMeansTypeStyle} value={kMeansType} onChange={handleKMeansTypeChange} label="Algorithm" autoWidth={true}>
+            <MenuItem value={'random'}>Random</MenuItem>
+            <MenuItem value={'deterministic'}>Deterministic</MenuItem>
+          </Select>
+        </FormControl>
+      </>
       }
 
       <FormControl variant="filled" style={{marginLeft: '2em'}}>
@@ -116,14 +141,14 @@ const ButtonGroup = (props) => {
       </Button>
       </div>
 
-      {/* <Button
-        style={{marginLeft: '1em', color: 'black', backgroundColor: true ? 'gray' : '#cf2e2e'}} // true -> !isEmpty
+      <Button
+        style={{marginLeft: '1em', color: 'black', backgroundColor: !isEmpty && !isCustomized ? 'gray' : '#cf2e2e'}} // true -> !isEmpty
         variant="contained"
-        disabled={true} // true -> !isEmpty
-        onClick={props.generatePoints}
+        disabled={!isEmpty && !isCustomized} // true -> !isEmpty
+        onClick={() => props.generatePoints(10)}
       >
-        { 'Generate Points '}
-      </Button> */}
+        { 'Generate'}
+      </Button>
 
       <div style={{display: 'flex', flexDirection: 'row', fontSize: '2.65em'}}>
         <TransitionModal />
