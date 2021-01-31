@@ -15,7 +15,6 @@ export const getCentroids = (k) => {
         cluster: [],
       }
     )
-    // IDEA: Check if there are a certain distance between the centroids, and if not, try again (?)
   }
   return centroids
 }
@@ -94,8 +93,8 @@ export const compareCentroids = (centroids, prevCentroids) => {
 
 export const getMarkedPoints = (table) => {
   const points = []
-  table.map((row) => {
-    row.map((point) => {
+  table.forEach((row) => {
+    row.forEach((point) => {
       if (point.type === 'marked') points.push({rowIndex: point.rowIndex, colIndex: point.colIndex})
     })
   })
@@ -110,47 +109,4 @@ export const getAverageOfCluster = (cluster) => {
   const rowIndex = Math.floor(rowIndexSum / cluster.length)
   const colIndex = Math.floor(colIndexSum / cluster.length)
   return {rowIndex, colIndex}
-}
-
-
-
-export const getArrow = (coordinates) => {
-  //
-}
-
-export const getNeighboors = (nodes, node) => {
-  const neighboors = []
-  const row = node.rowIndex
-  const col = node.colIndex
-
-  // UP
-  if (row > 0) {
-    const upNode = nodes[row - 1][col]
-    if (upNode.type === 'unvisited' || upNode.type === 'goal') {
-      neighboors.push(upNode) 
-    }
-  }
-  // RIGHT 49
-  if (col < 20) {
-    const rightNode = nodes[row][col + 1]
-    if (rightNode.type === 'unvisited' || rightNode.type === 'goal') {
-      neighboors.push(rightNode) 
-    }
-  }
-  // DOWN
-  if (row < 10) {
-    const downNode = nodes[row + 1][col]
-    if (downNode.type === 'unvisited' || downNode.type === 'goal') {
-      neighboors.push(downNode) 
-    }
-  }
-  // LEFT
-  if (col > 0) {
-    const leftNode = nodes[row][col - 1]
-    if (leftNode.type === 'unvisited' || leftNode.type === 'goal') {
-      neighboors.push(leftNode) 
-    }
-  }
-
-  return neighboors
 }

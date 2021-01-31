@@ -11,7 +11,6 @@ const typeToColorMap = {
   normal: '',
   unmarked: '',
   centroid: '#cf2e2e',
-  // Update these colors pls -> color palette :D
   '0': '#e3afbc', // pink
   '1': '#3feee6', // blue
   '2': '#cf2e2e', // red
@@ -24,7 +23,6 @@ const typeToColorMap = {
 
 const Point = (props) => {
   const [type, setType] = useState(props.type)
-  const [color, setColor] = useState(props.color)
   const runState = props.hooks.runState
 
   const updateType = (newType) => {

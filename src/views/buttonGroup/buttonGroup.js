@@ -41,6 +41,7 @@ const ButtonGroup = (props) => {
   const [algorithm, setAlgorithm] = useState('')
   const handleAlgorithmChange = (event) => {
     setAlgorithm(event.target.value)
+    props.setAlgorithm(event.target.value)
   }
 
   // SPEED SELECT
@@ -52,26 +53,44 @@ const ButtonGroup = (props) => {
 
   // PLAY BUTTON
   const handlePlayClick = () => {
+    let additionalInfo = {}
     if (algorithm === 'kMeans') {
-      props.runAlgorithm(algorithm, {k, centroidType: centroidType})
+      additionalInfo = {k, centroidType}
+    } else if (algorithm === 'dbscan') {
+      additionalInfo = {eps, minPts}
     }
+    props.runAlgorithm(algorithm, additionalInfo)
   }
 
-  // Select K
+  // Select K for KMeans
   const [k, setK] = useState(3)
   const handleKChange = (event) => {
     setK(event.target.value)
   }
 
+  // Select random or deterministic centroid generation for KMeans
   const [centroidType, setCentroidType] = useState('random')
   const handleCentroidTypeChange = (event) => {
     setCentroidType(event.target.value)
+  }
+
+  // Select epsilon for DBSCAN
+  const [eps, setEps] = useState(5)
+  const handleEpsChange = (event) => {
+    setEps(event.target.value)
+  }
+
+  // Select min pts for DBSCAN
+  const [minPts, setMinPts] = useState(3)
+  const handleMinPtsChange = (event) => {
+    setMinPts(event.target.value)
   }
 
   // <MenuItem value={'slow'}>Slow</MenuItem>
   //         <MenuItem value={'medium'}>Medium</MenuItem>
   //         <MenuItem value={'fast'}>Fast</MenuItem>
 
+  // TODO: Clean this up --> Make generic component for FormControl
   return (
     <div style={style}>
       <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -81,6 +100,7 @@ const ButtonGroup = (props) => {
         </InputLabel>
         <Select style={selectStyle} value={algorithm} onChange={handleAlgorithmChange} label="Algorithm" autoWidth={true}>
           <MenuItem value={'kMeans'}>K-Means</MenuItem>
+          <MenuItem value={'dbscan'}>DBSCAN</MenuItem>
         </Select>
       </FormControl>
 
@@ -100,7 +120,6 @@ const ButtonGroup = (props) => {
             <MenuItem value={7}>7</MenuItem>
           </Select>
         </FormControl>
-
         <FormControl variant="filled" style={{marginLeft: '1em'}}>
           <InputLabel>
             <div style={{color: 'black', fontStyle: 'italic'}}>Centroid type</div>
@@ -108,6 +127,35 @@ const ButtonGroup = (props) => {
           <Select style={selectCentroidTypeStyle} value={centroidType} onChange={handleCentroidTypeChange} label="Algorithm" autoWidth={true}>
             <MenuItem value={'random'}>Random</MenuItem>
             <MenuItem value={'deterministic'}>Deterministic</MenuItem>
+          </Select>
+        </FormControl>
+      </>
+      }
+
+      { algorithm === 'dbscan' &&
+      <>
+        <FormControl variant="filled" style={{marginLeft: '1em'}}>
+          <InputLabel>
+            <div style={{color: 'black', fontStyle: 'italic'}}>Epsilon</div>
+          </InputLabel>
+          <Select style={selectKStyle} value={eps} onChange={handleEpsChange} label="Epsilon" autoWidth={true}>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+            <MenuItem value={9}>9</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl variant="filled" style={{marginLeft: '1em'}}>
+          <InputLabel>
+            <div style={{color: 'black', fontStyle: 'italic'}}>Min Pts</div>
+          </InputLabel>
+          <Select style={selectKStyle} value={minPts} onChange={handleMinPtsChange} label="MinPts" autoWidth={true}>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+            <MenuItem value={9}>9</MenuItem>
           </Select>
         </FormControl>
       </>
