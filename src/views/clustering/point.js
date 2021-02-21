@@ -3,10 +3,6 @@ import { isInteger } from '../../algorithms/utils'
 import './animations.css'
 
 const typeToColorMap = {
-  // source: '#63C132',
-  // goal: '#cf2e2e',
-  //visited: '#2d749a',
-  //shortestPath: '#ffff60',
   marked: `rgb(${[220,220,220]})`,
   normal: '',
   unmarked: '',
@@ -49,7 +45,7 @@ const Point = (props) => {
   }
 
   return (
-    <div key={props.key} className={type === 'marked' || isInteger(type) ? 'marked-point' : type === 'unmarked' ? 'unmarked-point' : ''} style={style} onMouseDown={onMouseDown}/>
+    <div key={props.key} className={type === 'marked' || isInteger(type) ? 'marked-point' : ''} style={style} onMouseDown={onMouseDown}/>
   )
 }
 
