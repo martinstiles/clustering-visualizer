@@ -52,7 +52,7 @@ const TransitionsModal = () => {
               <h2> Welcome to my Clustering Visualizer </h2>
             </div>
             <div style={{textAlign: 'center', fontStyle: 'italic'}}>
-              <h3> - Definitely under development - </h3>
+              <h3> - Only 2 algorithms implemented thus far - </h3>
             </div>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginLeft: '1em', marginRight: '1em'}}>
               <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -65,15 +65,15 @@ const TransitionsModal = () => {
               </div>
               <div style={{display: 'flex', flexDirection: 'row'}}>
                 <p> A &nbsp;</p>
-                <p style={{color: '#e3afbc'}}> data points &nbsp; </p>
+                <p style={{color: '#e3afbc'}}> data point &nbsp; </p>
                 <p> with the same color as a &nbsp;</p>
                 <p style={{color: '#e3afbc'}}> centroid &nbsp; </p>
                 <p> belongs to it's cluster </p>
               </div>
             </div>
-            <p> 1. Click inside the grid to make points for the clustering algorithm </p>
-            <p> 2. Clicking the same cell twice will remove the point </p>
-            <p> 3. Select algorithm of choice (currently only one) </p>
+            <p> 1. Click inside the grid to make data points for the clustering algorithm </p>
+            <p> 2. Clicking a data point will remove it </p>
+            <p> 3. Select algorithm of choice </p>
             <p> 4. Select a different speed if you feel like it (currently only instant) </p>
             <p> 5. Hit play :)  </p>
             <div style={{textAlign: 'center'}}>
